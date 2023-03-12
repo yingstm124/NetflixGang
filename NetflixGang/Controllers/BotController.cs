@@ -13,10 +13,16 @@ namespace NetflixGang.Controllers
             _botService = botService;
         }
 
-        [HttpGet()]
+        [HttpGet]
         public string SayHi() 
         {
             return "Say hi";
+        }
+
+        [HttpPost("Payment")]
+        public Task Payment() 
+        {
+            return _botService.Payment();
         }
     }
 }

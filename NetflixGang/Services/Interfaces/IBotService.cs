@@ -2,5 +2,7 @@
 {
     public interface IBotService
     {
+        Task Payment();
+        Task ReceiptHistory();
     }
 }
