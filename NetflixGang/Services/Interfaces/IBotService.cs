@@ -1,8 +1,10 @@
-﻿namespace NetflixGang.Services.Interfaces
+﻿using Microsoft.AspNetCore.Mvc;
+
+namespace NetflixGang.Services.Interfaces
 {
     public interface IBotService
     {
-        Task Payment();
+        string GeneratePromptPayUrl();
         Task ReceiptHistory();
     }
 }

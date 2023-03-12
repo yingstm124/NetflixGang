@@ -19,10 +19,11 @@ namespace NetflixGang.Controllers
             return "Say hi";
         }
 
-        [HttpPost("Payment")]
-        public Task Payment() 
+        [HttpGet("Payment")]
+        public IActionResult Payment() 
         {
-            return _botService.Payment();
+            var promptpayUrl = _botService.GeneratePromptPayUrl();
+            return Redirect(promptpayUrl);
         }
     }
 }
