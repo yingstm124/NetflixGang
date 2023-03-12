@@ -10,7 +10,7 @@ namespace NetflixGang.Services
         public string GeneratePromptPayUrl()
         {
             var promptpayId = "0918548171";
-            var amount = (decimal)85.0;
+            var amount = (decimal)80.0;
             string payload = GeneratePromptPayPayload("0918548171", (decimal)85.0);
             string encodedPayload = Convert.ToBase64String(Encoding.UTF8.GetBytes(payload));
             string kbankUrl = $"https://online.kasikornbankgroup.com/K-Online/topup/PromptPay?promptpayId={promptpayId}&amount={amount}&promptpayData={encodedPayload}";
