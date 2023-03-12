@@ -1,0 +1,39 @@
+name: Netflix gang 🚀
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  AZURE_WEBAPP_NAME: 'NetflixGang'   # set this to your function app name on Azure
+  AZURE_WEBAPP_PACKAGE_PATH: './publish'       # set this to the path to your function app project, defaults to the repository root
+  DOTNET_VERSION: '6.0.x'                   # set this to the dotnet version to use (e.g. '2.1.x', '3.1.x', '5.0.x')
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: 'Checkout GitHub Action'
+      uses: actions/checkout@v3
+
+    - name: Setup DotNet ${{ env.DOTNET_VERSION }} Environment
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+
+    - name: 'Resolve Project Dependencies Using Dotnet'
+      run: dotnet restore NetflixGang.sln
+
+    - name: 'Build 👷‍♂️'
+      run: dotnet build NetflixGang.sln --configuration Release --no-restore
+    
+    - name: 'Publish 🕊️'
+      run: dotnet publish NetflixGang.sln --configuration Release -o ./publish --no-build
+      
+    - name: 'Deploy to Azure'
+      uses: Azure/webapps-deploy@v2
+      with:
+        app-name: ${{ env.AZURE_WEBAPP_NAME }}
+        publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+        package:  ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
